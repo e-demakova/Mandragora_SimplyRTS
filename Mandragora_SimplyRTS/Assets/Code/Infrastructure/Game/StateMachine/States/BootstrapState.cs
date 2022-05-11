@@ -1,4 +1,5 @@
 ﻿using Code.Infrastructure.Services.Factories;
+using Code.Infrastructure.Services.Gameplay.BotsControl;
 using UnityEngine;
 
 namespace Code.Infrastructure.Game.StateMachine.States
@@ -9,11 +10,13 @@ namespace Code.Infrastructure.Game.StateMachine.States
 
     private readonly IGameStateMachine _stateMachine;
     private readonly IBotsFactory _botsFactory;
+    private readonly IBotsTasksService _botsTasksService;
 
-    public BootstrapState(IGameStateMachine stateMachine, IBotsFactory botsFactory)
+    public BootstrapState(IGameStateMachine stateMachine, IBotsFactory botsFactory, IBotsTasksService botsTasksService)
     {
       _stateMachine = stateMachine;
       _botsFactory = botsFactory;
+      _botsTasksService = botsTasksService;
     }
 
     public void Enter()
@@ -31,6 +34,7 @@ namespace Code.Infrastructure.Game.StateMachine.States
       foreach (GameObject spawner in GameObject.FindGameObjectsWithTag(BotSpawnerTag)) 
         _botsFactory.SpawnBot(spawner);
 
+      _botsTasksService.SubscribeOnBots();
       _stateMachine.ChangeState<GameLoopState>();
     }
   }

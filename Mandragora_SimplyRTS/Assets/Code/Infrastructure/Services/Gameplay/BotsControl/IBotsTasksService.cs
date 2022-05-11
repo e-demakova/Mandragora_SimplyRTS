@@ -8,5 +8,6 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
     List<GameObject> SelectedBots { get; }
 
     void SubscribeOnBots();
+    void Cleanup();
   }
 }
