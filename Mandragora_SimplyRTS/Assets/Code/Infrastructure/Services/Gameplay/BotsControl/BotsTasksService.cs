@@ -52,8 +52,19 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
 
     private void OnRightClick()
     {
+      if (GroundIsWalkable())
+        GiveMoveTasks();
+    }
+
+    private bool GroundIsWalkable()
+    {
+      return _input.MouseRayCollider.CompareTag(Tags.WalkableGround);
+    }
+
+    private void GiveMoveTasks()
+    {
       foreach (BotTaskExecutor bot in SelectedBots)
-        bot.SetMoveToPositionTask(_input.MouseGroundPosition);
+        bot.SetMoveToPositionTask(_input.MouseMapPosition);
     }
   }
 }

@@ -9,8 +9,9 @@ namespace Code.Infrastructure.Services.PlayerInput
     event Action RightClick;
     
     bool Blocked { get; set; }
-    Vector3 MouseGroundPosition { get; }
+    Vector3 MouseMapPosition { get; }
     Vector3 MouseScreenPosition { get; }
+    Collider MouseRayCollider { get; }
     void SetCamera(Camera camera);
   }
 }

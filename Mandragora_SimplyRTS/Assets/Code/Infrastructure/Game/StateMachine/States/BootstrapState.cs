@@ -7,8 +7,6 @@ namespace Code.Infrastructure.Game.StateMachine.States
 {
   public class BootstrapState : IState
   {
-    private const string BotSpawnerTag = "BotSpawner";
-
     private readonly IGameStateMachine _stateMachine;
     private readonly IBotsFactory _botsFactory;
     private readonly IBotsTasksService _botsTasksService;
@@ -40,7 +38,7 @@ namespace Code.Infrastructure.Game.StateMachine.States
 
     private void InitBots()
     {
-      foreach (GameObject spawner in GameObject.FindGameObjectsWithTag(BotSpawnerTag)) 
+      foreach (GameObject spawner in GameObject.FindGameObjectsWithTag(Tags.BotSpawner)) 
         _botsFactory.SpawnBot(spawner);
 
       _botsTasksService.SubscribeOnBots();

@@ -12,8 +12,9 @@ namespace Code.Infrastructure.Services.PlayerInput
     private Camera _camera;
 
     public bool Blocked { get; set; }
-    public Vector3 MouseGroundPosition { get; private set; }
+    public Vector3 MouseMapPosition { get; private set; }
     public Vector3 MouseScreenPosition { get; private set; }
+    public Collider MouseRayCollider { get; private set; }
 
     public void Tick()
     {
@@ -43,14 +44,15 @@ namespace Code.Infrastructure.Services.PlayerInput
     private void UpdateMousePosition()
     {
       MouseScreenPosition = Input.mousePosition;
-      MouseGroundPosition = CalculateMouseGroundPosition();
+      MouseMapPosition = CalculateMouseGroundPosition(out RaycastHit hit);
+      MouseRayCollider = hit.collider;
     }
 
-    private Vector3 CalculateMouseGroundPosition()
+    private Vector3 CalculateMouseGroundPosition(out RaycastHit hit)
     {
       Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
-      Physics.Raycast(ray, out RaycastHit hit, _camera.farClipPlane, LayerMasks.Ground);
+      Physics.Raycast(ray, out hit, _camera.farClipPlane, LayerMasks.Ground);
       return hit.point;
     }
 
