@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Infrastructure.Services.Factories;
+﻿using Code.Infrastructure.Services.Factories;
 using UnityEngine;
 
 namespace Code.Infrastructure.Game.StateMachine.States
@@ -29,9 +28,10 @@ namespace Code.Infrastructure.Game.StateMachine.States
 
     private void InitBots()
     {
-      GameObject.FindGameObjectsWithTag(BotSpawnerTag);
+      foreach (GameObject spawner in GameObject.FindGameObjectsWithTag(BotSpawnerTag)) 
+        _botsFactory.SpawnBot(spawner);
+
       _stateMachine.ChangeState<GameLoopState>();
     }
-
   }
 }

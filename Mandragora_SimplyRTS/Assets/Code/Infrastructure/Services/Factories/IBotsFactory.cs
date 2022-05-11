@@ -7,6 +7,6 @@ namespace Code.Infrastructure.Services.Factories
   {
     List<GameObject> Bots { get; }
     
-    void CreateBot(Vector3 at);
+    void SpawnBot(GameObject spawner);
   }
 }

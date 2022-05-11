@@ -15,9 +15,10 @@ namespace Code.Infrastructure.Services.Factories
       _assets = assets;
     }
     
-    public void CreateBot(Vector3 at)
+    public void SpawnBot(GameObject spawner)
     {
       GameObject bot = _assets.Instantiate(AssetPath.Bot);
+      bot.transform.position = spawner.transform.position;
       Bots.Add(bot);
     }
   }
