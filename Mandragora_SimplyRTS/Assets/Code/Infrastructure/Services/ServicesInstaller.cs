@@ -1,7 +1,7 @@
 ﻿using Code.Infrastructure.Services.AssetsManagement;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.Gameplay.BotsControl;
-using Code.Infrastructure.Services.Input;
+using Code.Infrastructure.Services.PlayerInput;
 using Zenject;
 
 namespace Code.Infrastructure.Services

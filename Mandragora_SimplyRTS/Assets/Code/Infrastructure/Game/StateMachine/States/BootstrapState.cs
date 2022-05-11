@@ -1,5 +1,6 @@
 ﻿using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.Gameplay.BotsControl;
+using Code.Infrastructure.Services.PlayerInput;
 using UnityEngine;
 
 namespace Code.Infrastructure.Game.StateMachine.States
@@ -11,18 +12,26 @@ namespace Code.Infrastructure.Game.StateMachine.States
     private readonly IGameStateMachine _stateMachine;
     private readonly IBotsFactory _botsFactory;
     private readonly IBotsTasksService _botsTasksService;
+    private readonly IInputService _input;
 
-    public BootstrapState(IGameStateMachine stateMachine, IBotsFactory botsFactory, IBotsTasksService botsTasksService)
+    public BootstrapState(IGameStateMachine stateMachine, IBotsFactory botsFactory, IBotsTasksService botsTasksService, IInputService input)
     {
       _stateMachine = stateMachine;
       _botsFactory = botsFactory;
       _botsTasksService = botsTasksService;
+      _input = input;
     }
 
     public void Enter()
     {
       InitBots();
+      InitInput();
       _stateMachine.ChangeState<GameLoopState>();
+    }
+
+    private void InitInput()
+    {
+      _input.SetCamera(Camera.main);
     }
 
     public void Exit()

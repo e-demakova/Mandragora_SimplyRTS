@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+using Code.Logic.Bots;
 
 namespace Code.Infrastructure.Services.Gameplay.BotsControl
 {
   public interface IBotsTasksService : IService
   {
-    List<GameObject> SelectedBots { get; }
+    List<BotTaskExecutor> SelectedBots { get; }
 
     void SubscribeOnBots();
     void Cleanup();
