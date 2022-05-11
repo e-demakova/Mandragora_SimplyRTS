@@ -12,7 +12,7 @@ namespace Code.Logic.Bots
     private bool _selected;
 
     public bool Selected => _selected;
-
+    
     private void OnMouseUp()
     {
       _selected = !_selected;

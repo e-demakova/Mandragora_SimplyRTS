@@ -1,8 +1,12 @@
-﻿namespace Code.Infrastructure.Services.Factories
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace Code.Infrastructure.Services.Factories
 {
   public interface IBotsFactory : IService
   {
-    void CreateBot();
-    void Cleanup();
+    List<GameObject> Bots { get; }
+    
+    void CreateBot(Vector3 at);
   }
 }
