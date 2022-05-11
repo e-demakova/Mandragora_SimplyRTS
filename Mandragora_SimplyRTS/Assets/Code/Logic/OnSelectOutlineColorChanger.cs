@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Code.Logic
 {
+  [RequireComponent(typeof(Collider))]
   public class OnSelectOutlineColorChanger : MonoBehaviour
   {
     public Color DefaultOutline = Color.white;
