@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace Code.Infrastructure
+namespace Code.Infrastructure.Services
 {
   public class ServicesInstaller : Installer<ServicesInstaller>
   {

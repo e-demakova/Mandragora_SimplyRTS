@@ -3,5 +3,6 @@
   public interface IBotsFactory : IService
   {
     void CreateBot();
+    void Cleanup();
   }
 }

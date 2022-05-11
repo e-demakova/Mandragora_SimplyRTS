@@ -6,5 +6,10 @@ namespace Code.Infrastructure.Services.Factories
     {
       
     }
+
+    public void Cleanup()
+    {
+      
+    }
   }
 }

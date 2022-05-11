@@ -1,4 +1,5 @@
 using System;
+using StoreAssets.QuickOutline.Scripts;
 using UnityEngine;
 
 namespace Code.Logic
