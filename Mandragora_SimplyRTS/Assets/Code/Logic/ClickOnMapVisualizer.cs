@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.Services.PlayerInput;
+﻿using Code.Infrastructure.Services.Gameplay.BotsControl;
+using Code.Infrastructure.Services.PlayerInput;
 using UnityEngine;
 using Zenject;
 
@@ -13,16 +14,21 @@ namespace Code.Logic
     private ParticleSystem NotWalkableGroundEffect;
 
     private IInputService _input;
+    private IBotsTasksService _botTasks;
 
     [Inject]
-    public void Construct(IInputService input)
+    public void Construct(IInputService input, IBotsTasksService botTasks)
     {
       _input = input;
+      _botTasks = botTasks;
       _input.RightClick += OnRightClick;
     }
 
     private void OnRightClick()
     {
+      if(_botTasks.AllBotsDeselected())
+        return;
+      
       if (_input.MouseOnWalkableGround())
         ShowEffect(WalkableGroundEffect);
       else

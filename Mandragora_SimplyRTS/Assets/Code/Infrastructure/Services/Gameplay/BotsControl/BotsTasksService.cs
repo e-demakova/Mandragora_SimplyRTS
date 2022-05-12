@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.PlayerInput;
 using Code.Logic.Bots;
+using Code.Logic.Bots.Tasks;
 using UnityEngine;
 
 namespace Code.Infrastructure.Services.Gameplay.BotsControl
@@ -18,6 +19,11 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
       _factory = factory;
       _input = input;
       _input.RightClick += OnRightClick;
+    }
+
+    public bool AllBotsDeselected()
+    {
+      return SelectedBots.Count == 0;
     }
 
     public void SubscribeOnBots()
