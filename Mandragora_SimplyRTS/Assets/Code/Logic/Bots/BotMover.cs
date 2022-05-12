@@ -8,9 +8,14 @@ namespace Code.Logic.Bots
     [SerializeField]
     private NavMeshAgent Agent;
 
+    public void Stop()
+    {
+      Agent.SetDestination(transform.position);
+    }
+    
     public void Move(Vector3 destination)
     {
-      Agent.destination = destination;
+      Agent.SetDestination(destination);
     }
   }
 }

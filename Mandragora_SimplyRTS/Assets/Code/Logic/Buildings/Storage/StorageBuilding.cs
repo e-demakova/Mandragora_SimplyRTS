@@ -12,7 +12,15 @@ namespace Code.Logic.Buildings.Storage
     {
       BotBaggage baggage = bot.GetComponent<BotBaggage>();
       if (baggage.CanReceiveItem())
-        baggage.GiveItem(_itemGiver.GetItem());
+      {
+        GameObject item = _itemGiver.GetItem();
+        baggage.GiveItem(item);
+        Debug.Log($"ITEM [{item.name}] successfully received from the STORAGE [{gameObject.name}] by BOT [{bot.name}].");
+      }
+      else
+      {
+        Debug.Log($"BOT [{bot.name}] can't receive the ITEM from the STORAGE.");
+      }
     }
   }
 }

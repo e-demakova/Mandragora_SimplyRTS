@@ -1,5 +1,5 @@
+using System;
 using Code.Logic.Buildings;
-using Code.Logic.Buildings.Factory;
 using UnityEngine;
 
 namespace Code.Logic.Bots.Tasks
@@ -10,12 +10,25 @@ namespace Code.Logic.Bots.Tasks
 
     [SerializeField]
     private BotMover _mover;
-    
+
+    public Building NearBuilding { get; set; }
+
+    private void FixedUpdate()
+    {
+      if (CurrentTask == null)
+        return;
+
+      ExecuteTask();
+      
+      if (CurrentTask.Completed)
+        EndTask();
+    }
+
     public void SetMoveToPositionTask(Vector3 at)
     {
-      CurrentTask = new MoveToTask(at);
-      
       at.y = transform.position.y;
+
+      CurrentTask = new MoveToDestinationTask(at);
       _mover.Move(at);
     }
 
@@ -23,20 +36,36 @@ namespace Code.Logic.Bots.Tasks
     {
       Vector3 at = building.transform.position;
       at.y = transform.position.y;
-      
-      CurrentTask = new InteractWithBuildingTask(at, building);
+
+      CurrentTask = new InteractWithBuildingTask(building);
       _mover.Move(at);
     }
-
-    public void InformBuildingProximity(Building building)
+    
+    private void ExecuteTask()
     {
-      if (CurrentTask.Type == TaskType.InteractWithBuilding)
+      switch (CurrentTask)
       {
-        var task = CurrentTask as InteractWithBuildingTask;
-        
-        if(task.BuildingToInteract == building)
-          building.Interact(gameObject);
+        case MoveToDestinationTask task:
+          task.Completed = (task.Destination - _mover.transform.position).magnitude < 0.05f;
+          break;
+
+        case InteractWithBuildingTask task:
+          if (NearBuilding == task.BuildingToInteract)
+          {
+            NearBuilding.Interact(gameObject);
+            task.Completed = true;
+          }
+          break;
+
+        default:
+          throw new ArgumentOutOfRangeException();
       }
+    }
+
+    private void EndTask()
+    {
+      _mover.Stop();
+      CurrentTask = null;
     }
   }
 }

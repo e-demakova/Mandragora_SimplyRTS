@@ -1,5 +1,4 @@
 using Code.Logic.Bots;
-using Code.Logic.Bots.Tasks;
 using UnityEngine;
 
 namespace Code.Logic.Buildings.Factory
@@ -13,8 +12,16 @@ namespace Code.Logic.Buildings.Factory
     {
       BotBaggage baggage = bot.GetComponent<BotBaggage>();
 
-      if (baggage.CanPutItem())
-        _ItemReceiver.PutItem(baggage.GetItem());
+      if (baggage.CanGiveItem())
+      {
+        GameObject item = baggage.GetItem();
+        _ItemReceiver.PutItem(item);
+        Debug.Log($"ITEM [{item.name}] successfully received from the BOT [{bot.name}] by FACTORY.");
+      }
+      else
+      {
+        Debug.Log($"BOT [{bot.name}] can't give the ITEM to the FACTORY.");
+      }
     }
   }
 }

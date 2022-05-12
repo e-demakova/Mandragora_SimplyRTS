@@ -11,7 +11,7 @@ namespace Code.Logic.Bots
       return _item == null;
     }
 
-    public bool CanPutItem()
+    public bool CanGiveItem()
     {
       return _item != null;
     }

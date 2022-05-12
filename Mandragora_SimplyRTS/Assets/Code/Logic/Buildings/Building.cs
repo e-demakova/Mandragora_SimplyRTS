@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Logic.Bots.Tasks;
+﻿using Code.Logic.Bots.Tasks;
 using UnityEngine;
 
 namespace Code.Logic.Buildings
@@ -29,14 +28,18 @@ namespace Code.Logic.Buildings
         return;
 
       GameObject bot = other.gameObject;
-      bot.GetComponent<BotTaskExecutor>().InformBuildingProximity(this);
+      bot.GetComponent<BotTaskExecutor>().NearBuilding = this;
       OnBotEnter(bot);
     }
 
     private void OnBotExit(Collider other)
     {
-      if (other.CompareLayer(Layers.Bot)) 
-        OnBotExit(other.gameObject);
+      if (!other.CompareLayer(Layers.Bot))
+        return;
+      
+      GameObject bot = other.gameObject;
+      bot.GetComponent<BotTaskExecutor>().NearBuilding = null;
+      OnBotExit(bot);
     }
 
     protected virtual void OnBotEnter(GameObject bot)
