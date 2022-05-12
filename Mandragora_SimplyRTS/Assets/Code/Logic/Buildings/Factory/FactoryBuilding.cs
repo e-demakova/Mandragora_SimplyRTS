@@ -16,11 +16,12 @@ namespace Code.Logic.Buildings.Factory
       {
         GameObject item = baggage.GetItem();
         _ItemReceiver.PutItem(item);
-        Debug.Log($"ITEM [{item.name}] successfully received from the BOT [{bot.name}] by FACTORY.");
+        
+        Debug.Log($"ITEM [{item.name}] successfully received from the BOT [{bot.name}] by FACTORY [{gameObject.name}].");
       }
       else
       {
-        Debug.Log($"BOT [{bot.name}] can't give the ITEM to the FACTORY.");
+        Debug.Log($"BOT [{bot.name}] can't give the ITEM to the FACTORY [{gameObject.name}].");
       }
     }
   }

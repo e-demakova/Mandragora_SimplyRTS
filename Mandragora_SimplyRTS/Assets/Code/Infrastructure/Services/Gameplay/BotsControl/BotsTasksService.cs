@@ -10,12 +10,15 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
   class BotsTasksService : IBotsTasksService
   {
     private readonly IInputService _input;
+    private ITasksPool _tasksPool;
 
     public List<BotTaskExecutor> SelectedBots { get; } = new List<BotTaskExecutor>();
 
-    public BotsTasksService(IInputService input)
+    public BotsTasksService(IInputService input, ITasksPool tasksPool)
     {
       _input = input;
+      _tasksPool = tasksPool;
+      
       _input.RightClick += OnRightClick;
       _input.LeftClick += OnLeftClick;
     }
@@ -85,7 +88,10 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
     private void GiveMoveTasks()
     {
       foreach (BotTaskExecutor bot in SelectedBots)
-        bot.SetMoveToPositionTask(_input.MouseMapPosition);
+      {
+        ITask task = _tasksPool.GetMoveToPositionTask(bot, _input.MouseMapPosition);
+        bot.SetTask(task);
+      }
     }
 
     private void GiveBuildingInteractionTask()
@@ -93,7 +99,10 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
       Building building = _input.MouseOverlayCollider.GetComponent<Building>();
 
       foreach (BotTaskExecutor bot in SelectedBots)
-        bot.SetBuildingInteractionTask(building);
+      {
+        ITask task = _tasksPool.GetBuildingInteractionTask(bot, building);
+        bot.SetTask(task);
+      }
     }
   }
 }

@@ -2,7 +2,7 @@ using Code.Infrastructure.Services.Factories;
 using UnityEngine;
 using Zenject;
 
-namespace Code.Logic.Buildings.Storage
+namespace Code.Logic.Buildings
 {
   public class ParkingBuilding : Building
   {

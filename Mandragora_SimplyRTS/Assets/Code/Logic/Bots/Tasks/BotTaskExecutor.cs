@@ -6,7 +6,7 @@ namespace Code.Logic.Bots.Tasks
 {
   public class BotTaskExecutor : MonoBehaviour
   {
-    public ITask CurrentTask;
+    public ITask CurrentTask { get; private set; }
 
     [SerializeField]
     private BotMover _mover;
@@ -19,42 +19,28 @@ namespace Code.Logic.Bots.Tasks
         return;
 
       ExecuteTask();
-      
+
       if (CurrentTask.Completed)
         EndTask();
     }
 
-    public void SetMoveToPositionTask(Vector3 at)
+    public void SetTask(ITask task)
     {
-      at.y = transform.position.y;
-
-      CurrentTask = new MoveToDestinationTask(at);
-      _mover.Move(at);
+      EndTask();
+      CurrentTask = task;
+      _mover.Move(task.Destination);
     }
 
-    public void SetBuildingInteractionTask(Building building)
-    {
-      Vector3 at = building.transform.position;
-      at.y = transform.position.y;
-
-      CurrentTask = new InteractWithBuildingTask(building);
-      _mover.Move(at);
-    }
-    
     private void ExecuteTask()
     {
       switch (CurrentTask)
       {
         case MoveToDestinationTask task:
-          task.Completed = (task.Destination - _mover.transform.position).magnitude < 0.05f;
+          ExecuteMoveTask(task);
           break;
 
         case InteractWithBuildingTask task:
-          if (NearBuilding == task.BuildingToInteract)
-          {
-            NearBuilding.Interact(gameObject);
-            task.Completed = true;
-          }
+          ExecuteInteractTask(task);
           break;
 
         default:
@@ -62,9 +48,30 @@ namespace Code.Logic.Bots.Tasks
       }
     }
 
+    private void ExecuteMoveTask(MoveToDestinationTask task)
+    {
+      bool destinationReached = (task.Destination - _mover.transform.position).magnitude < 0.05f;
+      
+      if (destinationReached)
+        task.Complete();
+    }
+
+    private void ExecuteInteractTask(InteractWithBuildingTask task)
+    {
+      if (NearBuilding != task.BuildingToInteract) 
+        return;
+      
+      NearBuilding.Interact(gameObject);
+      task.Complete();
+    }
+
     private void EndTask()
     {
+      if(CurrentTask == null)
+        return;
+      
       _mover.Stop();
+      CurrentTask.Kill();
       CurrentTask = null;
     }
   }

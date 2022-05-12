@@ -10,6 +10,7 @@ namespace Code.Infrastructure.Game
     {
       ServicesInstaller.Install(Container);
       StateMachineInstaller.Install(Container);
+      
       Container.FullBind<Game>();
     }
   }

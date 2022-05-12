@@ -13,8 +13,9 @@ namespace Code.Infrastructure.Services
       Container.FullBind<AssetsProvider>();
       Container.FullBind<BotsFactory>();
       Container.FullBind<ItemFactory>();
-      Container.FullBind<BotsTasksService>();
       Container.FullBind<InputService>();
+      Container.FullBind<BotsTasksService>();
+      Container.FullBind<TasksPool>();
     }
   }
 }
