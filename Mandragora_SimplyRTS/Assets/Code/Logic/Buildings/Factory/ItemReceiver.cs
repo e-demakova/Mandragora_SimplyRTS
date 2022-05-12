@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Code.Logic.Factory
+namespace Code.Logic.Buildings.Factory
 {
   public class ItemReceiver : MonoBehaviour
   {

@@ -11,8 +11,12 @@ namespace Code.Infrastructure.Services.PlayerInput
     bool Blocked { get; set; }
     Vector3 MouseMapPosition { get; }
     Vector3 MouseScreenPosition { get; }
-    Collider MouseRayCollider { get; }
+    Collider MouseOverlayCollider { get; }
+    bool HoldShift { get; }
     void SetCamera(Camera camera);
     bool MouseOnWalkableGround();
+    bool MouseOnGround();
+    bool MouseOnBuilding();
+    bool MouseOnBot();
   }
 }

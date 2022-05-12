@@ -1,3 +1,4 @@
+using Code.Logic.Buildings;
 using UnityEngine;
 
 namespace Code.Logic.Bots.Tasks
@@ -14,6 +15,15 @@ namespace Code.Logic.Bots.Tasks
       CurrentTask = new MoveToTask(at);
       
       at.y = transform.position.y;
+      _mover.Move(at);
+    }
+
+    public void SetBuildingInteractionTask(Building building)
+    {
+      Vector3 at = building.transform.position;
+      at.y = transform.position.y;
+      
+      CurrentTask = new InteractWithBuildingTask(at, building);
       _mover.Move(at);
     }
   }

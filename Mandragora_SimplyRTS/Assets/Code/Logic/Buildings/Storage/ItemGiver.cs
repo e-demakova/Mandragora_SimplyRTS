@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Code.Logic.Storage
+namespace Code.Logic.Buildings.Storage
 {
   public class ItemGiver : MonoBehaviour
   {

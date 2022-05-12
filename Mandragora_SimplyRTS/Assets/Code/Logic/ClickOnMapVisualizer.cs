@@ -26,7 +26,7 @@ namespace Code.Logic
 
     private void OnRightClick()
     {
-      if(_botTasks.AllBotsDeselected())
+      if(_botTasks.AllBotsDeselected() || !_input.MouseOnGround())
         return;
       
       if (_input.MouseOnWalkableGround())
@@ -52,7 +52,7 @@ namespace Code.Logic
     private void MoveToClickPosition(ParticleSystem particles)
     {
       Vector3 position = _input.MouseMapPosition;
-      position.y = particles.transform.position.y;
+      position.y += 1;
       particles.transform.position = position;
     }
   }

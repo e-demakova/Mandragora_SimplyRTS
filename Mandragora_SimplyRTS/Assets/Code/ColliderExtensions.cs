@@ -4,9 +4,9 @@ namespace Code
 {
   public static class ColliderExtensions
   {
-    public static bool IsWalkableGround(this Collider collider)
+    public static bool CompareLayer(this Collider collider, int layer)
     {
-      return collider.CompareTag(Tags.WalkableGround);
+      return ((1 << collider.gameObject.layer) & layer) != 0;
     }
   }
 }

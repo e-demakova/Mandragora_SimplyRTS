@@ -1,4 +1,4 @@
-﻿using Code.Logic.Storage;
+﻿using Code.Logic.Buildings.Storage;
 using UnityEditor;
 using UnityEngine;
 

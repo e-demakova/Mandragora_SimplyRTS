@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1435000842152223981}
   - component: {fileID: 1413381514263716081}
   - component: {fileID: 1420673601670912387}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 1438269085464004233}
   - component: {fileID: 1409783289682537481}
   - component: {fileID: 1420465545923308361}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bricks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 1435135905761040745}
   - component: {fileID: 1410346257595002815}
   - component: {fileID: 1420391884493122033}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Signs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,8 @@ GameObject:
   - component: {fileID: 1433651420625789809}
   - component: {fileID: 5474494882692257600}
   - component: {fileID: 6103582108386838881}
-  m_Layer: 0
+  - component: {fileID: 3562487915954446961}
+  m_Layer: 7
   m_Name: Storage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,6 +339,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemPosition: {x: 0.12, y: 0.45, z: -0.23}
   ItemScale: 2
+--- !u!114 &3562487915954446961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433651420625789775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7d1f81a724493fa82a192a60156db3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6239659886177355517
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,7 +360,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 928081893623644090}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -18,17 +18,11 @@ namespace Code.Infrastructure.Services.Factories
       _assets = assets;
       _input = input;
     }
-    
+
     public void SpawnBot(GameObject spawner)
     {
       GameObject bot = _assets.Instantiate(AssetPath.Bot, spawner.transform.position);
-      InitBot(bot);
       Bots.Add(bot);
-    }
-
-    private void InitBot(GameObject bot)
-    {
-      bot.GetComponent<BotSelector>().Construct(_input);
     }
   }
 }
