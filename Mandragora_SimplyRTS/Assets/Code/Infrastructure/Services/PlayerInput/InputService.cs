@@ -49,17 +49,17 @@ namespace Code.Infrastructure.Services.PlayerInput
 
     public bool MouseOnGround()
     {
-      return MouseOverlayCollider.CompareLayer(LayerMasks.Ground);
+      return MouseOverlayCollider.CompareLayer(Layers.Ground);
     }
 
     public bool MouseOnBuilding()
     {
-      return MouseOverlayCollider.CompareLayer(LayerMasks.Building);
+      return MouseOverlayCollider.CompareLayer(Layers.Building);
     }
 
     public bool MouseOnBot()
     {
-      return MouseOverlayCollider.CompareLayer(LayerMasks.Bot);
+      return MouseOverlayCollider.CompareLayer(Layers.Bot);
     }
 
     private void UpdateMousePosition()
@@ -73,7 +73,7 @@ namespace Code.Infrastructure.Services.PlayerInput
     {
       Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
-      Physics.Raycast(ray, out hit, _camera.farClipPlane, LayerMasks.Ground | LayerMasks.Building | LayerMasks.Bot);
+      Physics.Raycast(ray, out hit, _camera.farClipPlane, Layers.Ground | Layers.Building | Layers.Bot);
       return hit.point;
     }
 

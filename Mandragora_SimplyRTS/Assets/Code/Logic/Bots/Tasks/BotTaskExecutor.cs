@@ -1,4 +1,5 @@
 using Code.Logic.Buildings;
+using Code.Logic.Buildings.Factory;
 using UnityEngine;
 
 namespace Code.Logic.Bots.Tasks
@@ -25,6 +26,17 @@ namespace Code.Logic.Bots.Tasks
       
       CurrentTask = new InteractWithBuildingTask(at, building);
       _mover.Move(at);
+    }
+
+    public void InformBuildingProximity(Building building)
+    {
+      if (CurrentTask.Type == TaskType.InteractWithBuilding)
+      {
+        var task = CurrentTask as InteractWithBuildingTask;
+        
+        if(task.BuildingToInteract == building)
+          building.Interact(gameObject);
+      }
     }
   }
 }
