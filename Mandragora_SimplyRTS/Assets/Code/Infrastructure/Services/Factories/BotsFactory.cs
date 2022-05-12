@@ -21,14 +21,13 @@ namespace Code.Infrastructure.Services.Factories
     
     public void SpawnBot(GameObject spawner)
     {
-      GameObject bot = _assets.Instantiate(AssetPath.Bot);
-      InitBot(spawner, bot);
+      GameObject bot = _assets.Instantiate(AssetPath.Bot, spawner.transform.position);
+      InitBot(bot);
       Bots.Add(bot);
     }
 
-    private void InitBot(GameObject spawner, GameObject bot)
+    private void InitBot(GameObject bot)
     {
-      bot.transform.position = spawner.transform.position;
       bot.GetComponent<BotSelector>().Construct(_input);
     }
   }

@@ -79,13 +79,13 @@ MonoBehaviour:
     value: 7.4
   saturation:
     overrideState: 1
-    value: 33.9
+    value: 70
   brightness:
     overrideState: 1
-    value: 3.9
+    value: 19.8
   postExposure:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.33
   contrast:
     overrideState: 1
     value: 2.6
@@ -123,8 +123,8 @@ MonoBehaviour:
     overrideState: 0
     value: {x: 0.8348209, y: 1, z: 0.83090484, w: 0.13289036}
   gain:
-    overrideState: 1
-    value: {x: 0.9573268, y: 1, z: 0.9547356, w: 0.09966775}
+    overrideState: 0
+    value: {x: 0.97155744, y: 1, z: 0.9788458, w: 0.09966775}
   masterCurve:
     overrideState: 0
     value:

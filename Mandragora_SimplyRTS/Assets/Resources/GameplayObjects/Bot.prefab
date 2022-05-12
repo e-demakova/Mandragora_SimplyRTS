@@ -104,8 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2703c7e99d6a469499296723d39623b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultOutline: {r: 0.9811321, g: 0.479851, b: 0, a: 1}
-  OnMouseOutline: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  DefaultOutline: {r: 1, g: 1, b: 1, a: 1}
+  OnMouseOutline: {r: 0.90625, g: 1, b: 0, a: 1}
   _outline: {fileID: 4962277686876635312}
 --- !u!114 &8529437333573620884
 MonoBehaviour:
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008269df9dcf4bca9576758a016e427b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultOutline: {r: 0.9803922, g: 0.4784314, b: 0, a: 1}
+  DefaultOutline: {r: 1, g: 1, b: 1, a: 1}
   OnSelectOutline: {r: 0.4377358, g: 1, b: 0.95686275, a: 1}
   _outline: {fileID: 4962277686876635312}
   _onMouseHighlighter: {fileID: 213080324801226129}
@@ -233,12 +233,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4005090670418466, guid: 5d000a3754863954ab551a6f6068da3c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005090670418466, guid: 5d000a3754863954ab551a6f6068da3c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.6
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 4005090670418466, guid: 5d000a3754863954ab551a6f6068da3c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 4005090670418466, guid: 5d000a3754863954ab551a6f6068da3c, type: 3}
       propertyPath: m_LocalPosition.x
