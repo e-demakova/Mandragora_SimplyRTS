@@ -7,7 +7,6 @@ namespace Code.Logic.Buildings.Storage
   public class ItemGiver : MonoBehaviour
   {
     public Vector3 ItemPosition;
-    public float ItemScale = 1;
     
     private GameObject _containedItem;
     private IItemFactory _itemFactory;
@@ -21,10 +20,10 @@ namespace Code.Logic.Buildings.Storage
     
     public GameObject GetItem()
     {
-      GameObject itemForGive = _containedItem.gameObject;
+      GameObject item = _containedItem.gameObject;
       ReplaceGivenItem();
 
-      return itemForGive;
+      return item;
     }
 
     private void ReplaceGivenItem()
@@ -36,7 +35,6 @@ namespace Code.Logic.Buildings.Storage
     {
       Vector3 at = transform.TransformPoint(ItemPosition);
       _containedItem = _itemFactory.CreateItem(at);
-      _containedItem.transform.localScale = Vector3.one * ItemScale;
       _containedItem.transform.parent = transform;
     }
   }

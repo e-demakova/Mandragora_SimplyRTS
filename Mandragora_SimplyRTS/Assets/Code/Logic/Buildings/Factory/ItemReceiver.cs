@@ -10,6 +10,8 @@ namespace Code.Logic.Buildings.Factory
     public void PutItem(GameObject item)
     {
       _items.Add(item);
+      item.transform.SetParent(transform);
+      item.SetActive(false);
     }
   }
 }

@@ -28,6 +28,16 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
       return SelectedBots.Count == 0;
     }
 
+    public void Alarm()
+    {
+      Debug.Log("Alarm!");
+    }
+
+    public void StopAlarm()
+    {
+      Debug.Log("Stop Alarm");
+    }
+
     private void OnLeftClick()
     {
       if (!_input.MouseOnBot())

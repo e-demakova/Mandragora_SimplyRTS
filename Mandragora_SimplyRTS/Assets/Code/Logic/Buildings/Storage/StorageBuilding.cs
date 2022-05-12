@@ -11,17 +11,11 @@ namespace Code.Logic.Buildings.Storage
     public override void Interact(GameObject bot)
     {
       BotBaggage baggage = bot.GetComponent<BotBaggage>();
+      
       if (baggage.CanReceiveItem())
-      {
-        GameObject item = _itemGiver.GetItem();
-        baggage.GiveItem(item);
-        
-        Debug.Log($"ITEM [{item.name}] successfully received from the STORAGE [{gameObject.name}] by BOT [{bot.name}].");
-      }
+        baggage.ReceiveItem(_itemGiver.GetItem());
       else
-      {
         Debug.Log($"BOT [{bot.name}] can't receive the ITEM from the STORAGE [{gameObject.name}].");
-      }
     }
   }
 }

@@ -13,16 +13,9 @@ namespace Code.Logic.Buildings.Factory
       BotBaggage baggage = bot.GetComponent<BotBaggage>();
 
       if (baggage.CanGiveItem())
-      {
-        GameObject item = baggage.GetItem();
-        _ItemReceiver.PutItem(item);
-        
-        Debug.Log($"ITEM [{item.name}] successfully received from the BOT [{bot.name}] by FACTORY [{gameObject.name}].");
-      }
+        _ItemReceiver.PutItem(baggage.GetItem());
       else
-      {
         Debug.Log($"BOT [{bot.name}] can't give the ITEM to the FACTORY [{gameObject.name}].");
-      }
     }
   }
 }

@@ -7,5 +7,7 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
   {
     List<BotTaskExecutor> SelectedBots { get; }
     bool AllBotsDeselected();
+    void Alarm();
+    void StopAlarm();
   }
 }
