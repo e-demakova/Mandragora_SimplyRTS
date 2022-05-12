@@ -41,6 +41,11 @@ namespace Code.Infrastructure.Services.PlayerInput
       _camera = camera;
     }
 
+    public bool MouseOnWalkableGround()
+    {
+      return MouseRayCollider.IsWalkableGround();
+    }
+
     private void UpdateMousePosition()
     {
       MouseScreenPosition = Input.mousePosition;

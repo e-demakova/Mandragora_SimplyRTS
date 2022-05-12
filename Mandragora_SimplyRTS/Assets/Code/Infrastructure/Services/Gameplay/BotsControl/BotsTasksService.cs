@@ -52,13 +52,8 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
 
     private void OnRightClick()
     {
-      if (GroundIsWalkable())
+      if (_input.MouseOnWalkableGround())
         GiveMoveTasks();
-    }
-
-    private bool GroundIsWalkable()
-    {
-      return _input.MouseRayCollider.CompareTag(Tags.WalkableGround);
     }
 
     private void GiveMoveTasks()

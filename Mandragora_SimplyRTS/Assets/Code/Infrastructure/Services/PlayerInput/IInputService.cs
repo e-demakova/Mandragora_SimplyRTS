@@ -13,5 +13,6 @@ namespace Code.Infrastructure.Services.PlayerInput
     Vector3 MouseScreenPosition { get; }
     Collider MouseRayCollider { get; }
     void SetCamera(Camera camera);
+    bool MouseOnWalkableGround();
   }
 }
