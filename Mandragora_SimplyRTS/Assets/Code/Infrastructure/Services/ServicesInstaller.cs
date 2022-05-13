@@ -1,6 +1,7 @@
 ﻿using Code.Infrastructure.Services.AssetsManagement;
 using Code.Infrastructure.Services.Factories;
-using Code.Infrastructure.Services.Gameplay.BotsControl;
+using Code.Infrastructure.Services.Gameplay;
+using Code.Infrastructure.Services.Gameplay.BotsTasks;
 using Code.Infrastructure.Services.PlayerInput;
 using Zenject;
 
@@ -16,6 +17,7 @@ namespace Code.Infrastructure.Services
       Container.FullBind<InputService>();
       Container.FullBind<BotsTasksService>();
       Container.FullBind<TasksPool>();
+      Container.FullBind<AnxietyLevelsService>();
     }
   }
 }

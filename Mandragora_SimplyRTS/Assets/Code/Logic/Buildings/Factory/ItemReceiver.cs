@@ -5,7 +5,7 @@ namespace Code.Logic.Buildings.Factory
 {
   public class ItemReceiver : MonoBehaviour
   {
-    private List<GameObject> _items = new List<GameObject>();
+    private readonly List<GameObject> _items = new List<GameObject>();
 
     public void PutItem(GameObject item)
     {

@@ -1,17 +1,16 @@
-using Code.Logic.Bots;
 using Code.Logic.Bots.Tasks;
 using Code.Logic.Buildings;
 using Code.Pools;
 using UnityEngine;
 
-namespace Code.Infrastructure.Services.Gameplay.BotsControl
+namespace Code.Infrastructure.Services.Gameplay.BotsTasks
 {
   public class TasksPool : ITasksPool
   {
     private readonly IPool<MoveToDestinationTask> _moveTasks = new Pool<MoveToDestinationTask>();
     private readonly IPool<InteractWithBuildingTask> _interactTask = new Pool<InteractWithBuildingTask>();
 
-    public ITask GetMoveToPositionTask(BotTaskExecutor bot, Vector3 at)
+    public ITask GetTask(BotTaskExecutor bot, Vector3 at)
     {
       at.y = bot.transform.position.y;
       MoveToDestinationTask task = _moveTasks.Pull();
@@ -20,7 +19,7 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
       return task;
     }
 
-    public ITask GetBuildingInteractionTask(BotTaskExecutor bot, Building building)
+    public ITask GetTask(BotTaskExecutor bot, Building building)
     {
       Vector3 destination = building.transform.position;
       destination.y = bot.transform.position.y;

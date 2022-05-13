@@ -1,24 +1,29 @@
+using System;
 using System.Collections.Generic;
+using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.PlayerInput;
 using Code.Logic.Bots;
 using Code.Logic.Bots.Tasks;
 using Code.Logic.Buildings;
 using UnityEngine;
 
-namespace Code.Infrastructure.Services.Gameplay.BotsControl
+namespace Code.Infrastructure.Services.Gameplay.BotsTasks
 {
   class BotsTasksService : IBotsTasksService
   {
     private readonly IInputService _input;
-    private ITasksPool _tasksPool;
+    private readonly ITasksPool _tasksPool;
+    private readonly IBotsFactory _botsFactory;
 
     public List<BotTaskExecutor> SelectedBots { get; } = new List<BotTaskExecutor>();
 
-    public BotsTasksService(IInputService input, ITasksPool tasksPool)
+    public BotsTasksService(IInputService input, ITasksPool tasksPool, IBotsFactory botsFactory)
     {
       _input = input;
       _tasksPool = tasksPool;
-      
+      _botsFactory = botsFactory;
+
+      SelectedBots.Capacity = _botsFactory.Bots.Count;
       _input.RightClick += OnRightClick;
       _input.LeftClick += OnLeftClick;
     }
@@ -28,14 +33,22 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
       return SelectedBots.Count == 0;
     }
 
-    public void Alarm()
+    public void SetUrgentTaskForAll(Building building)
     {
-      Debug.Log("Alarm!");
+      foreach (GameObject bot in _botsFactory.Bots)
+      {
+        BotTaskExecutor taskExecutor = bot.GetComponent<BotTaskExecutor>();
+        taskExecutor.SetUrgentTask(_tasksPool.GetTask(taskExecutor, building));
+      }
     }
 
-    public void StopAlarm()
+    public void SendAllToNormalTasksExecution()
     {
-      Debug.Log("Stop Alarm");
+      foreach (GameObject bot in _botsFactory.Bots)
+      {
+        BotTaskExecutor taskExecutor = bot.GetComponent<BotTaskExecutor>();
+        taskExecutor.EndUrgentTask();
+      }
     }
 
     private void OnLeftClick()
@@ -51,6 +64,15 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
 
       else
         SelectBot(botTaskExecutor, overlapBot);
+    }
+
+    private void OnRightClick()
+    {
+      if (_input.MouseOnWalkableGround())
+        GiveMoveTasks();
+
+      if (_input.MouseOnBuilding())
+        GiveBuildingInteractionTask();
     }
 
     private void SelectBot(BotTaskExecutor taskExecutor, GameObject overlapBot)
@@ -86,20 +108,11 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
       bot.GetComponent<BotSelectionView>().Deselect();
     }
 
-    private void OnRightClick()
-    {
-      if (_input.MouseOnWalkableGround())
-        GiveMoveTasks();
-
-      if (_input.MouseOnBuilding())
-        GiveBuildingInteractionTask();
-    }
-
     private void GiveMoveTasks()
     {
       foreach (BotTaskExecutor bot in SelectedBots)
       {
-        ITask task = _tasksPool.GetMoveToPositionTask(bot, _input.MouseMapPosition);
+        ITask task = _tasksPool.GetTask(bot, _input.MouseMapPosition);
         bot.SetTask(task);
       }
     }
@@ -110,7 +123,7 @@ namespace Code.Infrastructure.Services.Gameplay.BotsControl
 
       foreach (BotTaskExecutor bot in SelectedBots)
       {
-        ITask task = _tasksPool.GetBuildingInteractionTask(bot, building);
+        ITask task = _tasksPool.GetTask(bot, building);
         bot.SetTask(task);
       }
     }

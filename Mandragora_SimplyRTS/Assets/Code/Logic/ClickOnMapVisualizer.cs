@@ -1,4 +1,4 @@
-﻿using Code.Infrastructure.Services.Gameplay.BotsControl;
+﻿using Code.Infrastructure.Services.Gameplay.BotsTasks;
 using Code.Infrastructure.Services.PlayerInput;
 using UnityEngine;
 using Zenject;

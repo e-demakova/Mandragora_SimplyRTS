@@ -7,6 +7,7 @@ namespace Code.Logic.Bots.Tasks
   public class BotTaskExecutor : MonoBehaviour
   {
     public ITask CurrentTask { get; private set; }
+    public ITask UrgentTask { get; private set; }
 
     [SerializeField]
     private BotMover _mover;
@@ -15,25 +16,53 @@ namespace Code.Logic.Bots.Tasks
 
     private void FixedUpdate()
     {
-      if (CurrentTask == null)
-        return;
-
-      ExecuteTask();
-
-      if (CurrentTask.Completed)
-        EndTask();
+      if (UrgentTask != null && !UrgentTask.Killed)
+        ExecuteUrgentTask();
+      else
+        ExecuteTask();
     }
 
     public void SetTask(ITask task)
     {
-      EndTask();
+      EndTask(CurrentTask);
       CurrentTask = task;
-      _mover.Move(task.Destination);
+    }
+
+    public void SetUrgentTask(ITask task)
+    {
+      UrgentTask = task;
+    }
+
+    public void EndUrgentTask()
+    {
+      UrgentTask.Kill();
+      UrgentTask = null;
+    }
+
+    private void ExecuteUrgentTask()
+    {
+      if (!UrgentTask.Completed)
+        ExecuteTask(UrgentTask);
     }
 
     private void ExecuteTask()
     {
-      switch (CurrentTask)
+      if (CurrentTask == null || !CurrentTask.Executable())
+        return;
+
+      ExecuteTask(CurrentTask);
+
+      if (CurrentTask.Completed)
+      {
+        EndTask(CurrentTask);
+        CurrentTask = null;
+      } 
+    }
+    
+    private void ExecuteTask(ITask taskForExecute)
+    {
+      _mover.Move(taskForExecute.Destination);
+      switch (taskForExecute)
       {
         case MoveToDestinationTask task:
           ExecuteMoveTask(task);
@@ -51,28 +80,24 @@ namespace Code.Logic.Bots.Tasks
     private void ExecuteMoveTask(MoveToDestinationTask task)
     {
       bool destinationReached = (task.Destination - _mover.transform.position).magnitude < 0.05f;
-      
+
       if (destinationReached)
         task.Complete();
     }
 
     private void ExecuteInteractTask(InteractWithBuildingTask task)
     {
-      if (NearBuilding != task.BuildingToInteract) 
+      if (NearBuilding != task.BuildingToInteract)
         return;
-      
+
       NearBuilding.Interact(gameObject);
       task.Complete();
     }
 
-    private void EndTask()
+    private void EndTask(ITask task)
     {
-      if(CurrentTask == null)
-        return;
-      
       _mover.Stop();
-      CurrentTask.Kill();
-      CurrentTask = null;
+      task?.Kill();
     }
   }
 }

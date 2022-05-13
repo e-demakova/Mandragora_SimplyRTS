@@ -16,7 +16,7 @@ namespace StoreAssets.QuickOutline.Scripts
   [DisallowMultipleComponent]
 
   public class Outline : MonoBehaviour {
-    private static HashSet<Mesh> registeredMeshes = new HashSet<Mesh>();
+    private static readonly HashSet<Mesh> registeredMeshes = new HashSet<Mesh>();
 
     public enum Mode {
       OutlineAll,

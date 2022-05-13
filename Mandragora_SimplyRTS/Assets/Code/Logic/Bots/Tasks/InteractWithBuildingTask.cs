@@ -12,9 +12,10 @@ namespace Code.Logic.Bots.Tasks
     public Building BuildingToInteract;
 
     public bool Completed { get; private set; }
+    public bool Killed { get; private set; }
     public Vector3 Destination { get; set; }
 
-    public void Refresh()
+    public void Dispose()
     {
       Destination = Vector3.zero;
       BuildingToInteract = null;
@@ -26,8 +27,14 @@ namespace Code.Logic.Bots.Tasks
       Completed = true;
     }
 
+    public void Refresh()
+    {
+      Killed = false;
+    }
+
     public void Kill()
     {
+      Killed = true;
       LifeEnd?.Invoke(this);
     }
   }

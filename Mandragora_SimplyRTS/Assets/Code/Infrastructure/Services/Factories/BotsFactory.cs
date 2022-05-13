@@ -10,7 +10,7 @@ namespace Code.Infrastructure.Services.Factories
     private readonly IAssetsProvider _assets;
     private readonly IInputService _input;
 
-    public List<GameObject> Bots { get; } = new List<GameObject>();
+    public List<GameObject> Bots { get; } = new List<GameObject>(2);
 
     public BotsFactory(IAssetsProvider assets, IInputService input)
     {

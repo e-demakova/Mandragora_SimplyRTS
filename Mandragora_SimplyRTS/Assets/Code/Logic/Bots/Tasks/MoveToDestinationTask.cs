@@ -9,9 +9,10 @@ namespace Code.Logic.Bots.Tasks
     public event Action<IPoolItem> LifeEnd;
 
     public bool Completed { get; private set; }
+    public bool Killed { get; private set; }
     public Vector3 Destination { get; set; }
 
-    public void Refresh()
+    public void Dispose()
     {
       Destination = Vector3.zero;
       Completed = false;
@@ -22,8 +23,14 @@ namespace Code.Logic.Bots.Tasks
       Completed = true;
     }
 
+    public void Refresh()
+    {
+      Killed = false;
+    }
+
     public void Kill()
     {
+      Killed = true;
       LifeEnd?.Invoke(this);
     }
   }

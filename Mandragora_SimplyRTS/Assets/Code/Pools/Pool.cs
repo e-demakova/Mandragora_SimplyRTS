@@ -9,7 +9,9 @@ namespace Code.Pools
 
     public T Pull()
     {
-      return PoolEmpty() ? NewItem() : _queue.Dequeue();
+      T item = PoolEmpty() ? NewItem() : _queue.Dequeue();
+      item.Refresh();
+      return item;
     }
 
     private bool PoolEmpty()
@@ -26,7 +28,7 @@ namespace Code.Pools
 
     private void Push(IPoolItem item)
     {
-      item.Refresh();
+      item.Dispose();
       _queue.Enqueue((T) item);
     }
   }
