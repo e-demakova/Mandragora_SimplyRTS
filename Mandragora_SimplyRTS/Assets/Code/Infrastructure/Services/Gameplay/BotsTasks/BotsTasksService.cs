@@ -113,7 +113,7 @@ namespace Code.Infrastructure.Services.Gameplay.BotsTasks
       foreach (BotTaskExecutor bot in SelectedBots)
       {
         ITask task = _tasksPool.GetTask(bot, _input.MouseMapPosition);
-        bot.SetTask(task);
+        SetTask(bot, task);
       }
     }
 
@@ -124,7 +124,22 @@ namespace Code.Infrastructure.Services.Gameplay.BotsTasks
       foreach (BotTaskExecutor bot in SelectedBots)
       {
         ITask task = _tasksPool.GetTask(bot, building);
+        SetTask(bot, task);
+      }
+    }
+
+    private void SetTask(BotTaskExecutor bot, ITask task)
+    {
+      if (_input.HoldShift)
+      {
+        bot.SetTaskToPool(task);
+        if(bot.CurrentTask == null)
+          bot.SetTaskFromPool();
+      }
+      else
+      {
         bot.SetTask(task);
+        bot.ClearTaskPool();
       }
     }
   }

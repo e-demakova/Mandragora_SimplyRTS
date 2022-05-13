@@ -9,5 +9,6 @@ namespace Code.Logic.Bots.Tasks
     Vector3 Destination { get; set; }
 
     void Complete();
+    void RefreshTask();
   }
 }

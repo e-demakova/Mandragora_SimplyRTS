@@ -27,6 +27,11 @@ namespace Code.Logic.Bots.Tasks
       Completed = true;
     }
 
+    public void RefreshTask()
+    {
+      Completed = false;
+    }
+
     public void Refresh()
     {
       Killed = false;
