@@ -39,7 +39,7 @@ namespace Code.Logic.Bots
         _executor.EndTask(CurrentTask);
         CurrentTask = null;
       }
-        
+
       _tasksPool.Push(task);
     }
 
@@ -91,7 +91,11 @@ namespace Code.Logic.Bots
       else
       {
         CurrentTask.RefreshTask();
-        SetTaskFromPool();
+
+        if (_tasksPool.Count != 1)
+          SetTaskFromPool();
+        else
+          CurrentTask = null;
       }
     }
   }

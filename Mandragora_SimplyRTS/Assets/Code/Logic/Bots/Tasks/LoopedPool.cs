@@ -6,6 +6,7 @@ namespace Code.Logic.Bots.Tasks
   {
     private readonly List<T> _elements = new List<T>();
     private int _head;
+   
     public int Count => _elements.Count;
 
     public T Pull()
@@ -13,8 +14,8 @@ namespace Code.Logic.Bots.Tasks
       if (_elements.Count == 0)
         return null;
       
-      T element = _elements[_head];
       _head = (_head + 1) % _elements.Count;
+      T element = _elements[_head];
       return element;
     }
 
