@@ -79,7 +79,7 @@ namespace Code.Logic.Bots.Tasks
 
     private void ExecuteMoveTask(MoveToDestinationTask task)
     {
-      bool destinationReached = (task.Destination - _mover.transform.position).magnitude < 0.05f;
+      bool destinationReached = (task.Destination - _mover.transform.position).magnitude < MathConst.VectorEpsilon;
 
       if (destinationReached)
         task.Complete();

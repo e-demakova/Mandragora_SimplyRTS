@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3809662184999703844}
   - component: {fileID: 233529147307334156}
   - component: {fileID: 6826256953339346340}
+  - component: {fileID: 8769696989988009284}
   m_Layer: 8
   m_Name: Bot
   m_TagString: Untagged
@@ -179,6 +180,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemPosition: {x: 0, y: 1.4, z: 2.8}
+--- !u!114 &8769696989988009284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4962277686876635278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d356b3ca162441786345ed2f35e02c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _agent: {fileID: 8798401968402418475}
+  _animator: {fileID: 8398693087849407383}
 --- !u!1001 &4962277685704896529
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -335,8 +350,32 @@ PrefabInstance:
     - {fileID: 64918686045454110, guid: 5d000a3754863954ab551a6f6068da3c, type: 3}
     - {fileID: 64861691751917902, guid: 5d000a3754863954ab551a6f6068da3c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5d000a3754863954ab551a6f6068da3c, type: 3}
+--- !u!1 &4960811500828271613 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1647640819471340, guid: 5d000a3754863954ab551a6f6068da3c, type: 3}
+  m_PrefabInstance: {fileID: 4962277685704896529}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4959509754549217843 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4005090670418466, guid: 5d000a3754863954ab551a6f6068da3c, type: 3}
   m_PrefabInstance: {fileID: 4962277685704896529}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &8398693087849407383
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4960811500828271613}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 396020d591d76614a9f52ef680255bff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
