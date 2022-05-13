@@ -18,6 +18,8 @@ namespace Code.Logic.Buildings
     {
       TriggerListener.Enter -= OnBotEnter;
       TriggerListener.Exit -= OnBotExit;
+
+      Cleanup();
     }
 
     public abstract void Interact(GameObject bot);
@@ -47,6 +49,10 @@ namespace Code.Logic.Buildings
     }
 
     protected virtual void OnBotExit(GameObject bot)
+    {
+    }
+
+    protected virtual void Cleanup()
     {
     }
   }

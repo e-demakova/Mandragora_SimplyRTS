@@ -21,13 +21,13 @@ namespace Code.UI
     [SerializeField]
     private TextMeshProUGUI _text;
 
-    private IAnxietyLevelsService _anxietyLevels;
+    private IAnxietyService _anxiety;
     private bool _anxietyDeclared;
 
     [Inject]
-    public void Constructor(IAnxietyLevelsService botsTasks)
+    public void Constructor(IAnxietyService botsTasks)
     {
-      _anxietyLevels = botsTasks;
+      _anxiety = botsTasks;
     }
     
     private void Awake()
@@ -42,9 +42,9 @@ namespace Code.UI
       _anxietyDeclared = !_anxietyDeclared;
 
       if (_anxietyDeclared)
-        _anxietyLevels.DeclareAnxiety();
+        _anxiety.DeclareAnxiety();
       else
-        _anxietyLevels.StopAnxiety();
+        _anxiety.StopAnxiety();
     }
   }
 }

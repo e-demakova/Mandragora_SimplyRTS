@@ -17,7 +17,7 @@ namespace Code.Infrastructure.Services
       Container.FullBind<InputService>();
       Container.FullBind<BotsTasksService>();
       Container.FullBind<TasksPool>();
-      Container.FullBind<AnxietyLevelsService>();
+      Container.FullBind<AnxietyService>();
     }
   }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Code.Logic.Buildings;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ namespace Code.Logic.Bots.Tasks
 {
   public class BotTaskExecutor : MonoBehaviour
   {
-    private readonly Queue<ITask> _tasksPool = new Queue<ITask>(2);
+    private readonly LoopedPool<ITask> _tasksPool = new LoopedPool<ITask>();
 
     public ITask CurrentTask { get; private set; }
     public ITask UrgentTask { get; private set; }
@@ -33,13 +32,18 @@ namespace Code.Logic.Bots.Tasks
 
     public void SetTaskFromPool()
     {
-      CurrentTask = _tasksPool.Dequeue();
-      Debug.Log(CurrentTask.Completed);
+      CurrentTask = _tasksPool.Pull();
     }
 
     public void SetTaskToPool(ITask task)
     {
-      _tasksPool.Enqueue(task);
+      if (CurrentTask != null && !_tasksPool.Contains(CurrentTask))
+      {
+        EndTask(CurrentTask);
+        CurrentTask = null;
+      }
+        
+      _tasksPool.Push(task);
     }
 
     public void ClearTaskPool()
@@ -85,7 +89,6 @@ namespace Code.Logic.Bots.Tasks
       else
       {
         CurrentTask.RefreshTask();
-        SetTaskToPool(CurrentTask);
         SetTaskFromPool();
       }
     }
