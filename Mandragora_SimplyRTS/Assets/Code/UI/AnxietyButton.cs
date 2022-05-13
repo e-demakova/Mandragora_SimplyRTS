@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Infrastructure.Services.Gameplay;
+﻿using Code.Infrastructure.Services.Gameplay;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

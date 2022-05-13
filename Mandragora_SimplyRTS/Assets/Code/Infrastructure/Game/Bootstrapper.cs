@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.Game.StateMachine;
+﻿using Code.Extensions;
+using Code.Infrastructure.Game.StateMachine;
 using Code.Infrastructure.Services;
 using Zenject;
 

@@ -8,7 +8,7 @@ namespace Code.Logic.Bots
     [SerializeField]
     private NavMeshAgent Agent;
 
-    public void Move(Vector3 destination)
+    public void MoveAt(Vector3 destination)
     {
       if(destination != Agent.destination)
         SetDestination(destination);

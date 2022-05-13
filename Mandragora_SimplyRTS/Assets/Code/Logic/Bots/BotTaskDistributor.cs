@@ -1,10 +1,9 @@
-using System;
-using Code.Logic.Buildings;
+﻿using Code.Logic.Bots.Tasks;
 using UnityEngine;
 
-namespace Code.Logic.Bots.Tasks
+namespace Code.Logic.Bots
 {
-  public class BotTaskExecutor : MonoBehaviour
+  public class BotTaskDistributor : MonoBehaviour
   {
     private readonly LoopedPool<ITask> _tasksPool = new LoopedPool<ITask>();
 
@@ -12,13 +11,11 @@ namespace Code.Logic.Bots.Tasks
     public ITask UrgentTask { get; private set; }
 
     [SerializeField]
-    private BotMover _mover;
-
-    public Building NearBuilding { get; set; }
+    private BotTaskExecutor _executor;
 
     private void FixedUpdate()
     {
-      if (UrgentTask != null && !UrgentTask.Killed)
+      if (UrgentTaskActual())
         ExecuteUrgentTask();
       else
         ExecuteTask();
@@ -26,7 +23,7 @@ namespace Code.Logic.Bots.Tasks
 
     public void SetTask(ITask task)
     {
-      EndTask(CurrentTask);
+      _executor.EndTask(CurrentTask);
       CurrentTask = task;
     }
 
@@ -39,7 +36,7 @@ namespace Code.Logic.Bots.Tasks
     {
       if (CurrentTask != null && !_tasksPool.Contains(CurrentTask))
       {
-        EndTask(CurrentTask);
+        _executor.EndTask(CurrentTask);
         CurrentTask = null;
       }
         
@@ -62,10 +59,15 @@ namespace Code.Logic.Bots.Tasks
       UrgentTask = null;
     }
 
+    private bool UrgentTaskActual()
+    {
+      return UrgentTask != null && !UrgentTask.Killed;
+    }
+
     private void ExecuteUrgentTask()
     {
       if (!UrgentTask.Completed)
-        ExecuteTask(UrgentTask);
+        _executor.ExecuteTask(UrgentTask);
     }
 
     private void ExecuteTask()
@@ -73,7 +75,7 @@ namespace Code.Logic.Bots.Tasks
       if (CurrentTask == null || !CurrentTask.Executable())
         return;
 
-      ExecuteTask(CurrentTask);
+      _executor.ExecuteTask(CurrentTask);
 
       if (CurrentTask.Completed)
         OnCurrentTaskComplete();
@@ -83,7 +85,7 @@ namespace Code.Logic.Bots.Tasks
     {
       if (_tasksPool.Count == 0)
       {
-        EndTask(CurrentTask);
+        _executor.EndTask(CurrentTask);
         CurrentTask = null;
       }
       else
@@ -91,47 +93,6 @@ namespace Code.Logic.Bots.Tasks
         CurrentTask.RefreshTask();
         SetTaskFromPool();
       }
-    }
-
-    private void ExecuteTask(ITask taskForExecute)
-    {
-      _mover.Move(taskForExecute.Destination);
-      switch (taskForExecute)
-      {
-        case MoveToDestinationTask task:
-          ExecuteMoveTask(task);
-          break;
-
-        case InteractWithBuildingTask task:
-          ExecuteInteractTask(task);
-          break;
-
-        default:
-          throw new ArgumentOutOfRangeException();
-      }
-    }
-
-    private void ExecuteMoveTask(MoveToDestinationTask task)
-    {
-      bool destinationReached = (task.Destination - _mover.transform.position).magnitude < MathConst.VectorEpsilon;
-
-      if (destinationReached)
-        task.Complete();
-    }
-
-    private void ExecuteInteractTask(InteractWithBuildingTask task)
-    {
-      if (NearBuilding != task.BuildingToInteract)
-        return;
-
-      NearBuilding.Interact(gameObject);
-      task.Complete();
-    }
-
-    private void EndTask(ITask task)
-    {
-      _mover.Stop();
-      task?.Kill();
     }
   }
 }

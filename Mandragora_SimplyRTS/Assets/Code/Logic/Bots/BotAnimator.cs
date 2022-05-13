@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Code.Extensions;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Code.Logic.Bots
@@ -18,9 +19,14 @@ namespace Code.Logic.Bots
 
     private void Update()
     {
-      bool ride = (_agent.destination - _agent.transform.position).magnitude > MathConst.VectorEpsilon;
-      _animator.SetBool(_rideId, ride);
+      bool ride = !_agent.transform.DestinationReached(_agent.destination);
 
+      _animator.SetBool(_rideId, ride);
+      UpdateDust(ride);
+    }
+
+    private void UpdateDust(bool ride)
+    {
       if (ride)
       {
         if (_dust.isStopped)

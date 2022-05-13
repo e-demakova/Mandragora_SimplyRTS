@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Code.Infrastructure.Services.Factories;
 using Code.Infrastructure.Services.PlayerInput;
@@ -15,7 +14,7 @@ namespace Code.Infrastructure.Services.Gameplay.BotsTasks
     private readonly ITasksPool _tasksPool;
     private readonly IBotsFactory _botsFactory;
 
-    public List<BotTaskExecutor> SelectedBots { get; } = new List<BotTaskExecutor>();
+    public List<BotTaskDistributor> SelectedBots { get; } = new List<BotTaskDistributor>();
 
     public BotsTasksService(IInputService input, ITasksPool tasksPool, IBotsFactory botsFactory)
     {
@@ -37,8 +36,8 @@ namespace Code.Infrastructure.Services.Gameplay.BotsTasks
     {
       foreach (GameObject bot in _botsFactory.Bots)
       {
-        BotTaskExecutor taskExecutor = bot.GetComponent<BotTaskExecutor>();
-        taskExecutor.SetUrgentTask(_tasksPool.GetTask(taskExecutor, building));
+        BotTaskDistributor taskExecutor = bot.GetComponent<BotTaskDistributor>();
+        taskExecutor.SetUrgentTask(_tasksPool.GetTask(taskExecutor.transform, building));
       }
     }
 
@@ -46,7 +45,7 @@ namespace Code.Infrastructure.Services.Gameplay.BotsTasks
     {
       foreach (GameObject bot in _botsFactory.Bots)
       {
-        BotTaskExecutor taskExecutor = bot.GetComponent<BotTaskExecutor>();
+        BotTaskDistributor taskExecutor = bot.GetComponent<BotTaskDistributor>();
         taskExecutor.EndUrgentTask();
       }
     }
@@ -57,10 +56,10 @@ namespace Code.Infrastructure.Services.Gameplay.BotsTasks
         return;
 
       GameObject overlapBot = _input.MouseOverlayCollider.gameObject;
-      BotTaskExecutor botTaskExecutor = overlapBot.GetComponent<BotTaskExecutor>();
+      BotTaskDistributor botTaskExecutor = overlapBot.GetComponent<BotTaskDistributor>();
 
       if (SelectedBots.Contains(botTaskExecutor))
-        DeselectBot(overlapBot, botTaskExecutor);
+        DeselectBot(botTaskExecutor, overlapBot);
 
       else
         SelectBot(botTaskExecutor, overlapBot);
@@ -75,7 +74,7 @@ namespace Code.Infrastructure.Services.Gameplay.BotsTasks
         GiveBuildingInteractionTask();
     }
 
-    private void SelectBot(BotTaskExecutor taskExecutor, GameObject overlapBot)
+    private void SelectBot(BotTaskDistributor taskExecutor, GameObject overlapBot)
     {
       if (!_input.HoldShift)
         DeselectAllBots();
@@ -84,7 +83,7 @@ namespace Code.Infrastructure.Services.Gameplay.BotsTasks
       SelectBot(overlapBot);
     }
 
-    private void DeselectBot(GameObject overlapBot, BotTaskExecutor taskExecutor)
+    private void DeselectBot(BotTaskDistributor taskExecutor, GameObject overlapBot)
     {
       DeselectBot(overlapBot);
       SelectedBots.Remove(taskExecutor);
@@ -92,7 +91,7 @@ namespace Code.Infrastructure.Services.Gameplay.BotsTasks
 
     private void DeselectAllBots()
     {
-      foreach (BotTaskExecutor bot in SelectedBots)
+      foreach (BotTaskDistributor bot in SelectedBots)
         DeselectBot(bot.gameObject);
 
       SelectedBots.Clear();
@@ -110,9 +109,9 @@ namespace Code.Infrastructure.Services.Gameplay.BotsTasks
 
     private void GiveMoveTasks()
     {
-      foreach (BotTaskExecutor bot in SelectedBots)
+      foreach (BotTaskDistributor bot in SelectedBots)
       {
-        ITask task = _tasksPool.GetTask(bot, _input.MouseMapPosition);
+        ITask task = _tasksPool.GetTask(bot.transform, _input.MouseMapPosition);
         SetTask(bot, task);
       }
     }
@@ -121,14 +120,14 @@ namespace Code.Infrastructure.Services.Gameplay.BotsTasks
     {
       Building building = _input.MouseOverlayCollider.GetComponent<Building>();
 
-      foreach (BotTaskExecutor bot in SelectedBots)
+      foreach (BotTaskDistributor bot in SelectedBots)
       {
-        ITask task = _tasksPool.GetTask(bot, building);
+        ITask task = _tasksPool.GetTask(bot.transform, building);
         SetTask(bot, task);
       }
     }
 
-    private void SetTask(BotTaskExecutor bot, ITask task)
+    private void SetTask(BotTaskDistributor bot, ITask task)
     {
       if (_input.HoldShift)
       {

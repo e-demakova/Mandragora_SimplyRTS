@@ -6,7 +6,7 @@ namespace Code.Infrastructure.Services.Gameplay.BotsTasks
 {
   public interface ITasksPool : IService
   {
-    ITask GetTask(BotTaskExecutor bot, Vector3 at);
-    ITask GetTask(BotTaskExecutor bot, Building building);
+    ITask GetTask(Transform bot, Vector3 at);
+    ITask GetTask(Transform bot, Building building);
   }
 }
